@@ -17,11 +17,6 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Set Environment Variables - Release #Set Variables - Release
-        uses: deep-mm/set-variables@v1.0
-        with:
-          variableFileName: "release"
-
       # This action is used to download the build artifacts, which has been published by the latest run of CI pipeline
       - name: Download build artifacts
         uses: dawidd6/action-download-artifact@v2

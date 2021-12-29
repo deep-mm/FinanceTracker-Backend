@@ -4,9 +4,9 @@ name: DB-Build
 #Triggers to run the workflow
 on:
   push: #To trigger workflow when an update in pushed onto main branch
-    branches: [main]
+    branches: [master]
   pull_request: #To trigger workflow when a PR is raised against main branch
-    branches: [main]
+    branches: [master]
   workflow_dispatch: #To trigger workflow manually using GUI
 
 jobs:
@@ -35,7 +35,6 @@ jobs:
         run: |
           New-Item -Path "D:\a\${{ env.repoName }}\" -Name "upload" -ItemType "directory"
           $destinationRoot = "D:\a\${{ env.repoName }}\upload"
-          Copy-Item -Path "D:\a\${{ env.repoName }}\FinancialTracker.Database.zip" -Recurse -Destination $destinationRoot -Container  
           Copy-Item -Path "FinancialTracker.Database/bin/Release/FinancialTracker.Database.dacpac" -Recurse -Destination $destinationRoot -Container
           Copy-Item -Path "FinancialTracker.Database/FinancialTracker.Database.publish.xml" -Recurse -Destination $destinationRoot -Container
         shell: powershell

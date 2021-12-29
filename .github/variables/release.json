@@ -1,0 +1,8 @@
+{
+  "variables": [
+    {
+      "name": "repoName",
+      "value": "FinanceTracker-Backend"
+    }
+  ]
+}

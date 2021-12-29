@@ -1,0 +1,44 @@
+﻿#Name of the workflow
+name: DB-Deploy
+
+#Triggers to run the workflow
+on:
+  workflow_run:
+    workflows: ["DB-Build"]
+    branches: [master]
+    types:
+      - completed
+
+jobs:
+  # Build Job
+  build:
+    name: Deploy
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    steps:
+      - name: Set Environment Variables - Release #Set Variables - Release
+        uses: deep-mm/set-variables@v1.0
+        with:
+          variableFileName: "release"
+
+      # This action is used to download the build artifacts, which has been published by the latest run of CI pipeline
+      - name: Download build artifacts
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: db-deploy.yml # Name of workflow which publishes the artifacts
+          path: $GITHUB_WORKSPACE
+
+      - uses: azure/actions/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Azure SQL Deploy
+        uses: Azure/sql-action@v1
+        with:
+          # Name of the Azure SQL Server name, like Fabrikam.database.windows.net.
+          server-name: 'financetracker-server.database.windows.net'
+          # The connection string, including authentication information, for the Azure SQL Server database.
+          connection-string: ${{ secrets.SQL_DB_ConnectionString }}
+          # Path to DACPAC file to deploy
+          dacpac-package: '$GITHUB_WORKSPACE/drop/FinancialTracker.Database.dacpac'

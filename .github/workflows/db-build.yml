@@ -1,0 +1,47 @@
+#Name of the workflow
+name: DB-Build
+
+#Triggers to run the workflow
+on:
+  push: #To trigger workflow when an update in pushed onto main branch
+    branches: [main]
+  pull_request: #To trigger workflow when a PR is raised against main branch
+    branches: [main]
+  workflow_dispatch: #To trigger workflow manually using GUI
+
+jobs:
+  # Build Job
+  build:
+    name: Build
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository #Checkout the Repository into the agent
+        uses: actions/checkout@v2
+
+      - name: Set Environment Variables - Build #Set Variables - Build
+        uses: deep-mm/set-variables@v1.0
+        with:
+          variableFileName: "build"
+
+      - name: Setup MSBuild #Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.0.2
+
+      - name: Build DB Project #Build DB
+        run: msbuild FinancialTracker.Database/FinancialTracker.Database.sqlproj /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="D:\a\${{ env.repoName }}"
+
+      - name: Copy Items to Upload Artifact folder #copy the files to publish as artifacts
+        run: |
+          New-Item -Path "D:\a\${{ env.repoName }}\" -Name "upload" -ItemType "directory"
+          $destinationRoot = "D:\a\${{ env.repoName }}\upload"
+          Copy-Item -Path "D:\a\${{ env.repoName }}\FinancialTracker.Database.zip" -Recurse -Destination $destinationRoot -Container  
+          Copy-Item -Path "FinancialTracker.Database/bin/Release/FinancialTracker.Database.dacpac" -Recurse -Destination $destinationRoot -Container
+          Copy-Item -Path "FinancialTracker.Database/FinancialTracker.Database.publish.xml" -Recurse -Destination $destinationRoot -Container
+        shell: powershell
+
+      - name: Publish Artifact #Publish Artifacts to be consumed by the release pipeline
+        uses: actions/upload-artifact@v1
+        with:
+          name: drop
+          path: D:\a\${{ env.repoName }}\upload

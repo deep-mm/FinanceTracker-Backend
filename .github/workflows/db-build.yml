@@ -29,7 +29,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1.0.2
 
       - name: Build DB Project #Build DB
-        run: msbuild FinancialTracker.Database/FinancialTracker.Database.sqlproj /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="D:\a\${{ github.event.repository.name }} /p:Configuration=Release"
+        run: msbuild FinancialTracker.Database/FinancialTracker.Database.sqlproj /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="D:\a\${{ github.event.repository.name }} /p:Configuration=Release /t:Build"
 
       - name: Copy Items to Upload Artifact folder #copy the files to publish as artifacts
         run: |

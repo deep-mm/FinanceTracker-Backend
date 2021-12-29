@@ -67,7 +67,6 @@
   <ItemGroup>
     <Build Include="dbo\Programmability\Stored Procedures\GetActiveInvestments.sql" />
     <Build Include="dbo\Views\vw_ArchivedInvestments.sql" />
-    <PostDeploy Include="Scripts\Script.PostDeployment1.sql" />
     <Build Include="Security\RoleMemberships.sql" />
     <Build Include="dbo\Tables\InvestmentType.sql" />
     <Build Include="dbo\Tables\Investment.sql" />

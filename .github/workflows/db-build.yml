@@ -35,8 +35,8 @@ jobs:
         run: |
           New-Item -Path "D:\a\${{ env.repoName }}\" -Name "upload" -ItemType "directory"
           $destinationRoot = "D:\a\${{ env.repoName }}\upload"
-          Copy-Item -Path "FinancialTracker.Database/bin/Release/FinancialTracker.Database.dacpac" -Recurse -Destination $destinationRoot -Container
-          Copy-Item -Path "FinancialTracker.Database/FinancialTracker.Database.publish.xml" -Recurse -Destination $destinationRoot -Container
+          Copy-Item -Path "D:\a\${{ env.repoName }}\FinancialTracker.Database\bin\Release\FinancialTracker.Database.dacpac" -Recurse -Destination $destinationRoot -Container
+          Copy-Item -Path "D:\a\${{ env.repoName }}\FinancialTracker.Database\FinancialTracker.Database.publish.xml" -Recurse -Destination $destinationRoot -Container
         shell: powershell
 
       - name: Publish Artifact #Publish Artifacts to be consumed by the release pipeline

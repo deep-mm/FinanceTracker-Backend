@@ -21,7 +21,7 @@ jobs:
       - name: Download build artifacts
         uses: dawidd6/action-download-artifact@v2
         with:
-          workflow: db-deploy.yml # Name of workflow which publishes the artifacts
+          workflow: db-build.yml # Name of workflow which publishes the artifacts
           path: $GITHUB_WORKSPACE
 
       - uses: azure/actions/login@v1

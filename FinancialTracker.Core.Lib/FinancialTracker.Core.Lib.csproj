@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FinancialTracker.Models\FinancialTracker.Models.csproj" />
+  </ItemGroup>
+
 </Project>

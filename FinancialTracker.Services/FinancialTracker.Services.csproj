@@ -4,4 +4,15 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Microsoft.Azure.Services.AppAuthentication" Version="1.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FinancialTracker.Common\FinancialTracker.Common.csproj" />
+    <ProjectReference Include="..\FinancialTracker.Core.Lib\FinancialTracker.Core.Lib.csproj" />
+    <ProjectReference Include="..\FinancialTracker.Models\FinancialTracker.Models.csproj" />
+  </ItemGroup>
+
 </Project>

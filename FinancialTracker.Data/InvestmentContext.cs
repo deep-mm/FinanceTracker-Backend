@@ -204,5 +204,86 @@ namespace FinanceTrackerAPI.Data
                 throw new Exception(className + "/GetPagedInvestments(): " + e.Message);
             }
         }
+
+        public async Task<IEnumerable<InvestmentType>> GetInvestmentTypes()
+        {
+            try
+            {
+                IEnumerable<InvestmentType> investmentTypes;
+
+                var query = from investmentType in this.InvestmentTypes
+                            where investmentType.IsActive == true
+                            select investmentType;
+
+                investmentTypes = query.AsEnumerable<InvestmentType>();
+
+                if (investmentTypes != null)
+                {
+                    return investmentTypes;
+                }
+                else
+                {
+                    throw new NullReferenceException(className + $"/GetInvestmentTypes(): No investmentTypes found in the database");
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(className + "/GetInvestmentTypes(): " + e.Message);
+            }
+        }
+
+        public async Task<IEnumerable<InvestmentStatus>> GetInvestmentStatuses()
+        {
+            try
+            {
+                IEnumerable<InvestmentStatus> investmentStatuses;
+
+                var query = from investmentStatus in this.InvestmentStatuses
+                            where investmentStatus.IsActive == true
+                            select investmentStatus;
+
+                investmentStatuses = query.AsEnumerable<InvestmentStatus>();
+
+                if (investmentStatuses != null)
+                {
+                    return investmentStatuses;
+                }
+                else
+                {
+                    throw new NullReferenceException(className + $"/GetInvestmentStatuses(): No investmentStatuses found in the database");
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(className + "/GetInvestmentStatuses(): " + e.Message);
+            }
+        }
+
+        public async Task<IEnumerable<Member>> GetMembers()
+        {
+            try
+            {
+                IEnumerable<Member> members;
+
+                var query = from member in this.Members
+                            where member.IsActive == true
+                            select member;
+
+                members = query.AsEnumerable<Member>();
+
+                if (members != null)
+                {
+                    return members;
+                }
+                else
+                {
+                    throw new NullReferenceException(className + $"/GetMembers(): No members found in the database");
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(className + "/GetMembers(): " + e.Message);
+            }
+        }
     }
 }

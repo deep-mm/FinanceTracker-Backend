@@ -205,5 +205,52 @@ namespace FinanceTrackerAPI.Controllers
             }
         }
 
+        [HttpGet("investmentTypes")]
+        public async Task<IActionResult> GetInvestmentTypes()
+        {
+            try
+            {
+                this._logger.LogTrace("User " + this.helper.getLoggedInUsername() + " has accessed the API: GET api/investment/investmentTypes");
+                IEnumerable<InvestmentType> investmentTypes = await investmentService.GetInvestmentTypes();
+                return Ok(investmentTypes);
+            }
+            catch (Exception e)
+            {
+                this._logger.LogError(new Exception(), "User " + this.helper.getLoggedInUsername() + " has accessed the API: GET api/investment/investmentTypes with " + "Exception: An error occurred with message: " + e.Message);
+                return BadRequest("Error occured while getting investment types");
+            }
+        }
+
+        [HttpGet("investmentStatuses")]
+        public async Task<IActionResult> GetInvestmentStatuses()
+        {
+            try
+            {
+                this._logger.LogTrace("User " + this.helper.getLoggedInUsername() + " has accessed the API: GET api/investment/investmentStatuses");
+                IEnumerable<InvestmentStatus> investmentStatuses = await investmentService.GetInvestmentStatuses();
+                return Ok(investmentStatuses);
+            }
+            catch (Exception e)
+            {
+                this._logger.LogError(new Exception(), "User " + this.helper.getLoggedInUsername() + " has accessed the API: GET api/investment/investmentStatuses with " + "Exception: An error occurred with message: " + e.Message);
+                return BadRequest("Error occured while getting investment statuses");
+            }
+        }
+
+        [HttpGet("members")]
+        public async Task<IActionResult> GetMembers()
+        {
+            try
+            {
+                this._logger.LogTrace("User " + this.helper.getLoggedInUsername() + " has accessed the API: GET api/investment/members");
+                IEnumerable<Member> members = await investmentService.GetMembers();
+                return Ok(members);
+            }
+            catch (Exception e)
+            {
+                this._logger.LogError(new Exception(), "User " + this.helper.getLoggedInUsername() + " has accessed the API: GET api/investment/members with " + "Exception: An error occurred with message: " + e.Message);
+                return BadRequest("Error occured while getting members");
+            }
+        }
     }
 }

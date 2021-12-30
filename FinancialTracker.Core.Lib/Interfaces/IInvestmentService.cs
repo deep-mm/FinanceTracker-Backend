@@ -15,5 +15,8 @@ namespace FinancialTracker.Core.Lib
         Task<bool> DeleteInvestment(int investmentId);
         Task<PagedInvestmentResponse> GetPagedInvestments(int pageNumber, int pageSize, string searchText, IList<int> filter);
         Task<IEnumerable<FinanceTrackerAPI.Models.DAOs.ActiveInvestment>> GetActiveInvestments();
+        Task<IEnumerable<InvestmentType>> GetInvestmentTypes();
+        Task<IEnumerable<InvestmentStatus>> GetInvestmentStatuses();
+        Task<IEnumerable<Member>> GetMembers();
     }
 }

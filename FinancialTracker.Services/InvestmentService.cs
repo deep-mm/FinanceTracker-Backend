@@ -101,5 +101,20 @@ namespace FinancialTracker.Services
 
             return investment;
         }
+
+        public async Task<IEnumerable<InvestmentType>> GetInvestmentTypes()
+        {
+            return mapper.Map<IEnumerable<InvestmentType>>(await this.investmentRepository.GetInvestmentTypes());
+        }
+
+        public async Task<IEnumerable<InvestmentStatus>> GetInvestmentStatuses()
+        {
+            return mapper.Map<IEnumerable<InvestmentStatus>>(await this.investmentRepository.GetInvestmentStatuses());
+        }
+
+        public async Task<IEnumerable<Member>> GetMembers()
+        {
+            return mapper.Map<IEnumerable<Member>>(await this.investmentRepository.GetMembers());
+        }
     }
 }

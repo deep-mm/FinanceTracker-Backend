@@ -5,8 +5,12 @@ name: DB-Build
 on:
   push: #To trigger workflow when an update in pushed onto main branch
     branches: [master]
+    paths:
+      - "FinancialTracker.Database/**"
   pull_request: #To trigger workflow when a PR is raised against main branch
     branches: [master]
+    paths:
+      - "FinancialTracker.Database/**"
   workflow_dispatch: #To trigger workflow manually using GUI
 
 jobs:

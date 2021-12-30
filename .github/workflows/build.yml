@@ -1,0 +1,47 @@
+#Name of the workflow
+name: API-Build
+
+#Triggers to run the workflow
+on:
+  push: #To trigger workflow when an update in pushed onto main branch
+    branches: [master]
+  pull_request: #To trigger workflow when a PR is raised against main branch
+    branches: [master]
+  workflow_dispatch: #To trigger workflow manually using GUI
+
+jobs:
+  # Build Job
+  build:
+    name: Build Docker Image
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository #Checkout the Repository into the agent
+        uses: actions/checkout@v2
+
+      - name: Set Environment Variables - Build #Set Variables - Build
+        uses: deep-mm/set-variables@v1.0
+        with:
+          variableFileName: "build"
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.REGISTRY }}/${{ github.repository }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}

@@ -3,6 +3,10 @@
     {
       "name": "repoName",
       "value": "FinanceTracker-Backend"
+    },
+    {
+      "name": "REGISTRY",
+      "value": "ghcr.io"
     }
   ]
 }
